@@ -15,7 +15,7 @@
 
 		.container {
 			max-width: 1600px;
-			width:90%;
+			width: 90%;
 			border-left: solid black 1px;
 			border-right: solid black 1px;
 		}
