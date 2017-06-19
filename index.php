@@ -186,7 +186,7 @@
     $presub = '<track label="Deutsch" kind="subtitles" srclang="de" src="';
     $aftersub = '">';
 
-  $repl = array('_', '.', 'Ger-Dub');
+  $repl = array('_', '.', 'Ger-Dub', 'Jap-Sub');
 
     // search for mp4 and vtt files in folder
     $filename = glob("*.mp4") ;
