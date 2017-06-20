@@ -271,9 +271,7 @@ $selectedBg = "$imglist[$i]";
 
 <style type="text/css">
 		.jumbotron {
-
 			background-image: url("<?=$selectedBg; ?>");
-
 		}
 </style>
 
