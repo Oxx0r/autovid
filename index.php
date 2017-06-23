@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/danielgindi-jquery-backstretch/2.1.15/jquery.backstretch.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -15,7 +16,7 @@
 
 		.container {
 			max-width: 1600px;
-			width: 90%;
+			width:90%;
 			border-left: solid black 1px;
 			border-right: solid black 1px;
 		}
@@ -58,6 +59,8 @@
 			/* background-image: url('<?=$selectedBg; ?>'); */
 			background-size: cover;
 			background-position: 25%;
+      margin-top: 15px;
+      border-radius: 15px;
 		}
 
 		.jumbotron > h1 {
@@ -115,6 +118,9 @@
 			padding-bottom: 20px;
 			padding-top: 5px;
 		}
+    .backstretch {
+      border-radius: 5px;
+    }
 	</style>
 
 
@@ -186,7 +192,7 @@
     $presub = '<track label="Deutsch" kind="subtitles" srclang="de" src="';
     $aftersub = '">';
 
-  $repl = array('_', '.', 'Ger-Dub', 'Jap-Sub');
+  $repl = array('_', '.', 'Ger-Dub');
 
     // search for mp4 and vtt files in folder
     $filename = glob("*.mp4") ;
@@ -258,6 +264,8 @@ $imglist = str_replace(".mp4", ".jpg", $filename);
 $i = rand(0, count($imglist)-1);
 $selectedBg = "$imglist[$i]";
 
+$js_array = json_encode($imglist);
+$bs_list = str_replace(";", ",", $js_array);
     // Page generation time part 2
     $time = microtime();
     $time = explode(' ', $time);
@@ -271,10 +279,19 @@ $selectedBg = "$imglist[$i]";
 
 <style type="text/css">
 		.jumbotron {
+
 			background-image: url("<?=$selectedBg; ?>");
+
 		}
 </style>
+<script type="text/javascript">
+$(".jumbotron").backstretch(
 
+<?=$bs_list;  ?>
+,
+{ duration: 3000, fade: 750 }
+);
+</script>
 <!--
  _              ____              ___                         _   _____                             _
 | |            / __ \            / _ \                       | | |_   _|                           (_)
