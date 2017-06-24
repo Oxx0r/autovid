@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danielgindi-jquery-backstretch/2.1.15/jquery.backstretch.min.js"></script>
@@ -127,7 +127,7 @@
     <title>OxxTV</title>
 </head>
 
- <?php header('Content-Type: text/html; charset=ISO-8859-1');?>
+ <?php header('Content-Type: text/html; charset=UTF-8');?>
 
 <body>
 <?php
@@ -262,21 +262,22 @@
 </div></div></div></div>
 <?php
 // rnd bg image
-$imglist = str_replace(".mp4", ".jpg", $filename);
-$i = rand(0, count($imglist)-1);
-$selectedBg = "$imglist[$i]";
+//$imglist = str_replace(".mp4", ".jpg", $filename);
+$arraylistafiles = glob('*.jpg');
+$i = rand(0, count($arraylistafiles)-1);
+$selectedBg = "$arraylistafiles[$i]";
 
 
-function utf8_encode_deep(&$input) {
+function utf8_encode_deep(&$input)
+{
     if (is_string($input)) {
         $input = utf8_encode($input);
-    } else if (is_array($input)) {
+    } elseif (is_array($input)) {
         foreach ($input as &$value) {
             utf8_encode_deep($value);
         }
-
         unset($value);
-    } else if (is_object($input)) {
+    } elseif (is_object($input)) {
         $vars = array_keys(get_object_vars($input));
 
         foreach ($vars as $var) {
@@ -285,31 +286,38 @@ function utf8_encode_deep(&$input) {
     }
 }
 
-function to_utf8($in) {
-        if (is_array($in)) {
-            foreach ($in as $key => $value) {
-                $out[to_utf8($key)] = to_utf8($value);
-            }
-        } elseif(is_string($in)) {
-            if(mb_detect_encoding($in) != "UTF-8")
-                return utf8_encode($in);
-            else
-                return $in;
+function to_utf8($in)
+{
+    if (is_array($in)) {
+        foreach ($in as $key => $value) {
+            $out[to_utf8($key)] = to_utf8($value);
+        }
+    } elseif (is_string($in)) {
+        if (mb_detect_encoding($in) != "UTF-8") {
+            return utf8_encode($in);
         } else {
             return $in;
         }
-        return $out;
+    } else {
+        return $in;
+    }
+    return $out;
 }
 
-$utf8 = to_utf8($imglist);
+
+
+$utf8 = to_utf8($arraylistafiles);
 $utf8_array = json_encode($utf8, JSON_UNESCAPED_UNICODE);
-$json = htmlspecialchars($imglist, ENT_IGNORE, 'UTF-8');
-$js_array = json_encode($imglist, JSON_UNESCAPED_UNICODE); // JSON_PARTIAL_OUTPUT_ON_ERROR
+$json = htmlspecialchars($arraylistafiles, ENT_IGNORE, 'UTF-8');
+$js_array = json_encode($arraylistafiles, JSON_UNESCAPED_UNICODE, JSON_PARTIAL_OUTPUT_ON_ERROR); // JSON_PARTIAL_OUTPUT_ON_ERROR
 $js_test = json_encode($bs_list);
-$bs_list = implode(' , ', $imglist);
+$bs_list = implode(' , ', $arraylistafiles);
 $bs_list = '['.$bs_list.']';
 $bs_list2 = json_encode($bs_list);
 $imgurl = rawurlencode($js_array);
+
+$utf8_array2 = str_replace("Â", "", $utf8_array);
+
     // Page generation time part 2
     $time = microtime();
     $time = explode(' ', $time);
@@ -331,17 +339,18 @@ $imgurl = rawurlencode($js_array);
 <script type="text/javascript">
 $(".jumbotron").backstretch(
 
-<?=$utf8_array;  ?>
+<?=$utf8_array2;  ?>
 ,
 { duration: 3000, fade: 750 }
 );
 </script>
 <?php
-// echo '<pre>'; print_r($utf8); echo '</pre>';
-// echo '<pre>'; print_r($imglist); echo '</pre>';
-// echo '<pre>'; print_r($utf8_array); echo '</pre>';
-// echo '<pre>'; print_r($js_test); echo '</pre>';
+// echo '<pre>'; print_r($arraylistafiles); echo '</pre>';
 // echo '<pre>'; print_r($js_array); echo '</pre>';
+// echo '<pre>'; print_r($utf8); echo '</pre>';
+// echo '<pre>'; print_r($utf8_array); echo '</pre>';
+// echo '<pre>'; print_r($imglist); echo '</pre>';
+// echo '<pre>'; print_r($js_test); echo '</pre>';
 // echo '<pre>'; print_r($imgurl); echo '</pre>';
 // echo '<pre>'; print_r($json); echo '</pre>';
 ?>
