@@ -168,17 +168,19 @@
             <p>Providing scantily clad anime babes since 2017</p>
             <hr>
         </div>
-<div class="row">
+    <div class="wrap">
+      <div class="row">
+
 <?php
     $urlrep = array('video', '/', 'anime');
     $url = str_replace($urlrep, '', $_SERVER['REQUEST_URI']);
 
     print "<div class=\"row\"><div class=\"col-xs-12\"><h2>$url</h2><hr></div></div>"
 ?>
-
+        <div class="container-fluid">
 
 <?php
-    header('Content-Type: text/html; charset=UTF-8');
+    //header('Content-Type: text/html; charset=UTF-8');
     // ffmpeg path
     $ffmpeg = 'C:\ffmpeg\bin\ffmpeg.exe';
     //Poster/Thumbnail size
@@ -257,15 +259,57 @@
 ?>
 
 
-</div></div>
+</div></div></div></div>
 <?php
 // rnd bg image
 $imglist = str_replace(".mp4", ".jpg", $filename);
 $i = rand(0, count($imglist)-1);
 $selectedBg = "$imglist[$i]";
 
-$js_array = json_encode($imglist);
-$bs_list = str_replace(";", ",", $js_array);
+
+function utf8_encode_deep(&$input) {
+    if (is_string($input)) {
+        $input = utf8_encode($input);
+    } else if (is_array($input)) {
+        foreach ($input as &$value) {
+            utf8_encode_deep($value);
+        }
+
+        unset($value);
+    } else if (is_object($input)) {
+        $vars = array_keys(get_object_vars($input));
+
+        foreach ($vars as $var) {
+            utf8_encode_deep($input->$var);
+        }
+    }
+}
+
+function to_utf8($in) {
+        if (is_array($in)) {
+            foreach ($in as $key => $value) {
+                $out[to_utf8($key)] = to_utf8($value);
+            }
+        } elseif(is_string($in)) {
+            if(mb_detect_encoding($in) != "UTF-8")
+                return utf8_encode($in);
+            else
+                return $in;
+        } else {
+            return $in;
+        }
+        return $out;
+}
+
+$utf8 = to_utf8($imglist);
+$utf8_array = json_encode($utf8, JSON_UNESCAPED_UNICODE);
+$json = htmlspecialchars($imglist, ENT_IGNORE, 'UTF-8');
+$js_array = json_encode($imglist, JSON_UNESCAPED_UNICODE); // JSON_PARTIAL_OUTPUT_ON_ERROR
+$js_test = json_encode($bs_list);
+$bs_list = implode(' , ', $imglist);
+$bs_list = '['.$bs_list.']';
+$bs_list2 = json_encode($bs_list);
+$imgurl = rawurlencode($js_array);
     // Page generation time part 2
     $time = microtime();
     $time = explode(' ', $time);
@@ -287,11 +331,20 @@ $bs_list = str_replace(";", ",", $js_array);
 <script type="text/javascript">
 $(".jumbotron").backstretch(
 
-<?=$bs_list;  ?>
+<?=$utf8_array;  ?>
 ,
 { duration: 3000, fade: 750 }
 );
 </script>
+<?php
+// echo '<pre>'; print_r($utf8); echo '</pre>';
+// echo '<pre>'; print_r($imglist); echo '</pre>';
+// echo '<pre>'; print_r($utf8_array); echo '</pre>';
+// echo '<pre>'; print_r($js_test); echo '</pre>';
+// echo '<pre>'; print_r($js_array); echo '</pre>';
+// echo '<pre>'; print_r($imgurl); echo '</pre>';
+// echo '<pre>'; print_r($json); echo '</pre>';
+?>
 <!--
  _              ____              ___                         _   _____                             _
 | |            / __ \            / _ \                       | | |_   _|                           (_)
