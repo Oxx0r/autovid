@@ -104,6 +104,8 @@
 			color: white;
 			font-family: acme;
 			font-size: 1.3em;
+      text-align: justify;
+      max-width: 85%;
 		}
 
 		.row h2 {
