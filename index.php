@@ -9,6 +9,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<style type="text/css">
+    :root {
+    --hellblau: #c6d1e7;
+    --blau: #365085;
+    --dunkelblau: #202c47;
+    }
 		html{
 		/*    min-height:100%;
 		    position:relative;*/
@@ -32,11 +37,11 @@
 			background-image: url(http://oxx.rocks/dl/ButtPattern.png);
 			background-repeat: repeat-y repeat-x;
 			background-size: 5%;
-			background-color: #202c47;
+			background-color: var(--dunkelblau);
 		}
 
 		#content {
-			background-color: #365085;
+			background-color: var(--blau);
 		/*	min-height: 100%;
 			position:absolute;
 		    top:50px;
@@ -78,12 +83,12 @@
 		}
 
 		.navbar-inverse {
-			color: #c6d1e7;
+			color: var(--hellblau);
 			background-color: #17223a;
 		}
 
 		.navbar-inverse .navbar-nav>li>a {
-			color: #c6d1e7;
+			color: var(--hellblau);
 		}
 
 		.navbar-inverse .navbar-nav>.active>a {
@@ -92,7 +97,7 @@
 		}
 
 		.navbar-inverse .navbar-brand {
-			color: #c6d1e7;
+			color: var(--hellblau);
 		}
 
 		.row p {
@@ -112,8 +117,8 @@
 		}
 
 		.episode {
-			background: #202c47;
-			border: 5px solid #365085;
+			background: var(--dunkelblau);
+			border: 5px solid var(--blau);
 			border-radius: 10px;
 			padding-bottom: 20px;
 			padding-top: 5px;
@@ -194,7 +199,7 @@
     $presub = '<track label="Deutsch" kind="subtitles" srclang="de" src="';
     $aftersub = '">';
 
-  $repl = array('_', '.', 'Ger-Dub', 'Jap-Sub');
+  $repl = array('_', '.', 'Ger-Dub');
 
     // search for mp4 and vtt files in folder
     $filename = glob("*.mp4") ;
