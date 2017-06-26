@@ -105,7 +105,7 @@
 			font-family: acme;
 			font-size: 1.3em;
       text-align: justify;
-      max-width: 85%;
+      max-width: 90%;
 		}
 
 		.row h2 {
@@ -127,6 +127,10 @@
 		}
     .backstretch {
       border-radius: 5px;
+    }
+    .vidtitle {
+      margin-top: 5px;
+      min-height: 50px;
     }
 	</style>
 
@@ -223,7 +227,7 @@
             $cutend1 = chop($e[0], ".mp4");
             $replunerline1 = str_replace($repl, " ", $cutend1);
             $utf8poster[0] =  utf8_encode($poster[0]);
-            print "<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 episode\"><p>$replunerline1</p><div class=\"embed-responsive embed-responsive-16by9\">";
+            print "<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 episode\"><div class=\"vidtitle\"><p>$replunerline1</p></div><div class=\"embed-responsive embed-responsive-16by9\">";
             print "$preposter$poster[0]$prefilename$e[0]$afterfilename";
             print "$presub$e[1]$aftersub";
             print "</video></div></div>";
@@ -248,7 +252,7 @@
             $cutend2 = chop($filename[0], ".mp4");
             $replunerline2 = str_replace($repl, " ", $cutend2);
             $utf8poster[0] =  utf8_encode($poster[0]);
-            print "<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 episode\"><p>$replunerline2</p><div class=\"embed-responsive embed-responsive-16by9\">";
+            print "<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12 episode\"><div class=\"vidtitle\"><p>$replunerline2</p></div><div class=\"embed-responsive embed-responsive-16by9\">";
             print "$preposter$poster[0]$prefilename$filename[0]$afterfilename";
             print "</video></div></div>";
 
