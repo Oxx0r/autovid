@@ -62,6 +62,7 @@
 			text-shadow: 0 0 5px #000;
 			background-image: url(http://oxx.rocks/dl/Butt.png);
 			/* background-image: url('<?=$selectedBg; ?>'); */
+      background-image: url("<?=$selectedBg; ?>");
 			background-size: cover;
 			background-position: 25%;
       margin-top: 15px;
@@ -147,6 +148,33 @@
     $time = explode(' ', $time);
     $time = $time[1] + $time[0];
     $start = $time;
+
+    $titlearray1 = array( 'scantily clad',
+                          'moe',
+                          'tsundere',
+                          'yandere',
+                          'awesome',
+                          'otaku',
+                          'harem',
+                          'Fan service'
+                        );
+    $ii = rand(0, count($titlearray1)-1);
+    $selectedTitle1 = "$titlearray1[$ii]";
+
+    $titlearray2 = array( 'babes',
+                          'grils',
+                          'cat girls',
+                          'schoolgirls',
+                          'MAN',
+                          'Ladies',
+                          'stuff',
+                          'chicks',
+                          'gals',
+                          'little sisters',
+                          'Onee-chans'
+                        );
+    $ii = rand(0, count($titlearray2)-1);
+    $selectedTitle2 = "$titlearray2[$ii]";    
 ?>
     <nav class="navbar navbar-inverse navbar-fixed-top">
 <!--         <div class="container">
@@ -176,13 +204,14 @@
     <div class="container" id="content">
         <div class="jumbotron">
             <h1><i class="fa fa-tv" aria-hidden="true"></i> OxxTV</h1>
-            <p>Providing scantily clad anime babes since 2017</p>
+            <p>Providing <?=$selectedTitle1; ?> anime <?=$selectedTitle2; ?> since 2017</p>
             <hr>
         </div>
     <div class="wrap">
       <div class="row">
 
 <?php
+
     $urlrep = array('video', '/', 'anime');
     $url = str_replace($urlrep, '', $_SERVER['REQUEST_URI']);
 
@@ -340,13 +369,13 @@ $utf8_array2 = str_replace("Â", "", $utf8_array);
     //echo '<pre>'; print_r($imglist); echo '</pre>';
 ?>
 
-<style type="text/css">
+<!-- /*<style type="text/css">
 		.jumbotron {
 
 			background-image: url("<?=$selectedBg; ?>");
 
 		}
-</style>
+</style>*/ -->
 <script type="text/javascript">
 $(".jumbotron").backstretch(
 
