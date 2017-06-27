@@ -28,7 +28,8 @@
 
 
 		body {
-			padding-top: 50px;
+			/*padding-top: 50px;*/
+      padding-top: 10px;
 			height: 100%;
 		/*	background-image: url(SingleButt.png);
 			background-size: 25%, 100%;
@@ -42,6 +43,9 @@
 
 		#content {
 			background-color: var(--blau);
+      border-top: solid black 1px;
+      border-bottom: solid black 1px;
+      border-radius: 10px;
 		/*	min-height: 100%;
 			position:absolute;
 		    top:50px;
@@ -134,9 +138,13 @@
       min-height: 50px;
     }
 	</style>
+  <?php
+     $urlrep = array('video', '/', 'anime');
+     $url = str_replace($urlrep, '', $_SERVER['REQUEST_URI']);
+       ?>
 
 
-    <title>OxxTV</title>
+    <title>OxxTV - <?=$url; ?></title>
 </head>
 
  <?php header('Content-Type: text/html; charset=UTF-8');?>
@@ -171,13 +179,16 @@
                           'chicks',
                           'gals',
                           'little sisters',
-                          'Onee-chans'
+                          'Onee-chans',
+                          'punches',
+                          'Titans',
+                          'Heroes'
                         );
     $ii = rand(0, count($titlearray2)-1);
-    $selectedTitle2 = "$titlearray2[$ii]";    
+    $selectedTitle2 = "$titlearray2[$ii]";
 ?>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-<!--         <div class="container">
+  <!--  <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -198,8 +209,8 @@
                     <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                 </ul>
             </div>
-        </div> -->
-    </nav>
+        </div>
+    </nav>-->
 
     <div class="container" id="content">
         <div class="jumbotron">
@@ -212,8 +223,8 @@
 
 <?php
 
-    $urlrep = array('video', '/', 'anime');
-    $url = str_replace($urlrep, '', $_SERVER['REQUEST_URI']);
+    // $urlrep = array('video', '/', 'anime');
+    // $url = str_replace($urlrep, '', $_SERVER['REQUEST_URI']);
 
     print "<div class=\"row\"><div class=\"col-xs-12\"><h2>$url</h2><hr></div></div>"
 ?>
