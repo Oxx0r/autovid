@@ -3,7 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danielgindi-jquery-backstretch/2.1.15/jquery.backstretch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/motio/2.2.2/motio.min.js" charset="utf-8"></script>
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
@@ -138,7 +140,22 @@
       margin-top: 5px;
       min-height: 50px;
     }
+    .loader {
+    	position: fixed;
+    	left: 0px;
+    	top: 0px;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 9999;
+    	/*background: url('http://bradsknutson.com/wp-content/uploads/2013/04/page-loader.gif') 50% 50% no-repeat rgb(66, 66, 66);*/
+      background: url('http://dl.oxx.rocks/loading3.gif') 50% 50% no-repeat rgb(255, 255, 255);
+}
 	</style>
+  <script type="text/javascript">
+    $(window).load(function() {
+          $(".loader").fadeOut("slow");
+    })
+</script>
   <?php
      $urlrep = array('video', '/', 'anime');
      $url = str_replace($urlrep, '', $_SERVER['REQUEST_URI']);
@@ -151,6 +168,7 @@
  <?php header('Content-Type: text/html; charset=UTF-8');?>
 
 <body>
+  <div class="loader"></div>
 <?php
     // Page generation time part 1
     $time = microtime();
